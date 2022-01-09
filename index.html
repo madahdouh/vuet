@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vue Basics</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+            rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+</head>
+<body>
+<div id="app">
+    <v-app id="inspire">
+        <v-navigation-drawer
+                v-model="drawer"
+                app
+        >
+            <v-list>
+                <v-list-item-group
+                        active-class="border"
+                        color="indigo">
+                    <v-list-item
+                            v-for="d in menu"
+                            :key="d.id"
+                            link
+                    >
+                        <v-list-item-content v-on:click="getPage(d)">
+                            <!--                        <router-link :to="d.url">{{d.urlName}}</router-link>-->
+
+                            <v-list-item-title>{{ d.urlName }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
+            <!--  -->
+        </v-navigation-drawer>
+
+        <v-app-bar app>
+            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-row class="flex-wrap">
+                <v-card
+                        class="d-flex flex-row mb-6"
+                        color="grey darken-3"
+                        flat
+                        tile
+                >
+                    <v-card
+                            v-for="tab in tabs"
+                            :key="tab.id"
+                            class="pa-2"
+                            :color="tab.isselected?'grey lighten-1':'grey lighten-3' "
+                            outlined
+                            tile
+                            v-on:click="getTabDetails(tab)"
+                    >
+                        {{ tab.title }}
+                    </v-card>
+                </v-card>
+
+            </v-row>
+
+            <v-toolbar-title>{{pageTitle}}</v-toolbar-title>
+        </v-app-bar>
+
+        <v-main>
+            <div style="height: 20px"></div>
+            <v-row>
+
+                <v-col col="1">
+
+                </v-col>
+                <v-col col="10">
+                    <component v-bind:is="pageContent" :menuselected="menuselected"></component>
+
+                </v-col>
+                <v-col col="1">
+
+                </v-col>
+            </v-row>
+
+        </v-main>
+    </v-app>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+<script src="app.js" defer></script>
+
+</html>
